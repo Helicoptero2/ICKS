@@ -1,1 +1,5 @@
-
+git clone https://github.com/Helicoptero2/ICKS.git
+cd ICKS
+mkdir Ingenieria_de_Software_I
+git commit -m "Agregar nueva carpeta"
+git push origin main
