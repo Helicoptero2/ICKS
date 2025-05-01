@@ -1,70 +1,66 @@
-# HTML Bootstrap BAAS Project
+# Proyecto Ingenieria de Software III
 
-## Overview
-This project is a web application for the Federación Colombiana de Taekwondo, built using HTML, Tailwind CSS, and Supabase as a Backend-as-a-Service (BaaS). It allows clubs to register, manage members, and handle tournament inscriptions.
+## Descripción General
+Este proyecto es una aplicación web para la **Federación Colombiana de Taekwondo**, construida con **HTML**, **Tailwind CSS** y **Supabase** como Backend-as-a-Service (BaaS). Permite a los clubes registrarse, gestionar miembros y manejar inscripciones a torneos.
 
-## Project Structure
+## Estructura del Proyecto
 ```
 html-bootstrap-baas-project
 ├── src
-│   ├── index.html           # Login page
-│   ├── dashboard.html       # Admin dashboard for club and tournament management
-│   ├── users.html           # Club panel for managing members and inscriptions
+│   ├── index.html           # Página de inicio de sesión
+│   ├── dashboard.html       # Panel de administración para gestión de clubes y torneos
+│   ├── users.html           # Panel de clubes para gestionar miembros e inscripciones
 │   ├── css
-│   │   └── styles.css       # Custom styles
+│   │   └── styles.css       # Estilos personalizados
 │   ├── js
-│   │   ├── auth.js          # Authentication logic and alerts
-│   │   ├── dashboard.js     # Dashboard logic (admin)
-│   │   ├── login.js         # Login logic
-│   │   ├── postgres.js      # Supabase/Postgres data access functions
-│   │   └── supabase.js      # Supabase client and insert helpers
+│   │   ├── auth.js          # Lógica de autenticación y alertas
+│   │   ├── dashboard.js     # Lógica del panel de administración
+│   │   ├── login.js         # Lógica de inicio de sesión
+│   │   ├── postgres.js      # Funciones de acceso a datos con Supabase/Postgres
+│   │   └── supabase.js      # Cliente Supabase y funciones de inserción
 │   └── assets
-│       └── logo.svg         # Logo for the web application
-├── README.md                # Project documentation
-└── .gitignore               # Files to ignore in version control
+│       └── logo.svg         # Logo de la aplicación web
+├── README.md                # Documentación del proyecto
+└── .gitignore               # Archivos ignorados en control de versiones
 ```
 
-## Features
+## Funcionalidades
 
-- **Club Registration:** Register clubs with club name, email, and sensei.
-- **Member Management:** Add members with fields: Nombre, Apellido, Cédula, Sexo, Celular, Dirección, Correo, Cinturón, Categoría (Kumite/Kata), Peso, Talla.
-- **Tournament Management:** Create and list tournaments.
-- **Inscription:** Assign members to tournaments.
-- **Authentication:** Login and logout using Supabase Auth.
-- **Responsive UI:** Built with Tailwind CSS for modern, responsive design.
-- **Modern Alerts:** Custom alert system for user feedback.
+- **Registro de Clubes:** Registrar clubes con nombre, correo electrónico y nombre del sensei.
+- **Gestión de Miembros:** Agregar miembros con los siguientes campos: Nombre, Apellido, Cédula, Sexo, Celular, Dirección, Correo, Cinturón, Categoría (Kumite/Kata), Peso, Talla.
+- **Gestión de Torneos:** Crear y listar torneos.
+- **Inscripción:** Asignar miembros a torneos.
+- **Autenticación:** Iniciar y cerrar sesión mediante Supabase Auth.
+- **Interfaz Responsiva:** Construida con Tailwind CSS para un diseño moderno y adaptable.
+- **Alertas Modernas:** Sistema de alertas personalizadas para retroalimentación del usuario.
 
-## Setup Instructions
+## Instrucciones de Instalación
 
-1. **Clone the repository:**
+1. **Clona el repositorio:**
+   ```bash
+   git clone <url-del-repositorio>
    ```
-   git clone <repository-url>
-   ```
-2. **Navigate to the project directory:**
-   ```
+2. **Navega al directorio del proyecto:**
+   ```bash
    cd html-bootstrap-baas-project
    ```
-3. **Open the `src/index.html` file in a web browser to view the application.**
+3. **Abre el archivo `src/index.html` en un navegador web para ver la aplicación.**
 
-## Usage Guidelines
+## Guía de Uso
 
-- **Admin Dashboard:** Use `dashboard.html` to register clubs, add members, and manage tournaments.
-- **Club Panel:** Use `users.html` for club-specific actions like viewing members and inscribing them in tournaments.
-- **Authentication:** Only registered users can access the dashboard and club panel.
-- **Modify Styles:** Edit `src/css/styles.css` for custom styles.
-- **Update Logic:** Edit files in `src/js/` to change or extend functionality.
+- **Panel de Administración:** Usa `dashboard.html` para registrar clubes, agregar miembros y gestionar torneos.
+- **Panel de Clubes:** Usa `users.html` para acciones específicas del club como ver miembros e inscribirlos en torneos.
+- **Autenticación:** Solo los usuarios registrados pueden acceder al panel de administración y al panel de clubes.
+- **Modificar Estilos:** Edita `src/css/styles.css` para personalizar los estilos.
+- **Actualizar Lógica:** Edita los archivos en `src/js/` para cambiar o extender la funcionalidad.
 
-## Technologies Used
+## Tecnologías Utilizadas
 
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Supabase](https://supabase.com/) (Postgres, Auth)
 - [Font Awesome](https://fontawesome.com/)
-- Vanilla JavaScript (ES Modules)
+- JavaScript Vanilla (Módulos ES)
 
-## Contributing
+## Licencia
 
-Feel free to submit issues or pull requests to improve the project.
-
-## License
-
-This project is licensed under the MIT License.
+Este proyecto está licenciado bajo la **Licencia MIT**.
