@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscripción Torneo de Karate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-xl mt-8">
+    <h1 class="text-2xl font-bold mb-4 text-center">Inscripción de Club al Torneo de Karate</h1>
+    <form id="formularioInscripcion" class="space-y-6">
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Datos del Club</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" name="nombre_club" placeholder="Nombre del Club" required class="border rounded p-2 w-full">
+          <input type="text" name="ciudad" placeholder="Ciudad" required class="border rounded p-2 w-full">
+          <input type="email" name="correo" placeholder="Correo Electrónico" required class="border rounded p-2 w-full">
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Datos del Entrenador</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" name="nombre_entrenador" placeholder="Nombre del Entrenador" required class="border rounded p-2 w-full">
+          <input type="tel" name="telefono_entrenador" placeholder="Teléfono" required class="border rounded p-2 w-full">
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Competidores</h2>
+        <div id="listaCompetidores" class="space-y-4"></div>
+        <button type="button" onclick="agregarCompetidor()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">+ Agregar Competidor</button>
+      </div>
+
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold">Enviar Inscripción</button>
+    </form>
+
+    <div id="mensajeExito" class="hidden mt-6 p-4 bg-green-100 text-green-800 rounded">¡Inscripción enviada con éxito!</div>
+  </div>
+
+  <div class="max-w-6xl mx-auto mt-12 p-6 bg-white shadow-md rounded-xl">
+    <h2 class="text-2xl font-bold mb-4 text-center">Listado de Inscripciones</h2>
+    <table class="min-w-full table-auto border border-gray-300">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="px-4 py-2 border">Club</th>
+          <th class="px-4 py-2 border">Ciudad</th>
+          <th class="px-4 py-2 border">Correo</th>
+          <th class="px-4 py-2 border">Sensei</th>
+          <th class="px-4 py-2 border">Teléfono</th>
+          <th class="px-4 py-2 border">Alumnos</th>
+        </tr>
+      </thead>
+      <tbody id="tablaInscripciones"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let contador = 0;
+    function agregarCompetidor() {
+      if (contador >= 10) return;
+      const div = document.createElement('div');
+      div.classList = 'grid grid-cols-1 md:grid-cols-4 gap-2';
+      div.innerHTML = `
+        <input name="competidor_nombre_${contador}" placeholder="Nombre" required class="border rounded p-2">
+        <input name="competidor_edad_${contador}" type="number" placeholder="Edad" required class="border rounded p-2">
+        <input name="competidor_categoria_${contador}" placeholder="Categoría" required class="border rounded p-2">
+        <input name="competidor_cinturon_${contador}" placeholder="Cinturón" required class="border rounded p-2">
+      `;
+      document.getElementById('listaCompetidores').appendChild(div);
+      contador++;
+    }
+
+    document.getElementById('formularioInscripcion').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const datos = new FormData(e.target);
+      const data = Object.fromEntries(datos.entries());
+
+      const response = await fetch('/api/inscripcion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        document.getElementById('mensajeExito').classList.remove('hidden');
+        e.target.reset();
+        document.getElementById('listaCompetidores').innerHTML = '';
+        contador = 0;
+        cargarInscripciones();
+      }
+    });
+
+    async function cargarInscripciones() {
+      const res = await fetch('/api/listado');
+      const clubes = await res.json();
+      const tbody = document.getElementById('tablaInscripciones');
+      tbody.innerHTML = '';
+
+      clubes.forEach(c => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="border px-2 py-1">${c.nombre}</td>
+          <td class="border px-2 py-1">${c.ciudad}</td>
+          <td class="border px-2 py-1">${c.correo}</td>
+          <td class="border px-2 py-1">${c.entrenador}</td>
+          <td class="border px-2 py-1">${c.telefono}</td>
+          <td class="border px-2 py-1">
+            <ul>
+              ${c.competidores.map(comp => `<li>${comp.nombre} (${comp.edad} años, ${comp.categoria}, ${comp.cinturon})</li>`).join('')}
+            </ul>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    window.onload = cargarInscripciones;
+  </script>
+</body>
+</html>
