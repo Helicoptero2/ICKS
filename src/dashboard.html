@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
-<body class="bg-gradient-to-br from-yellow-200 via-blue-100 to-red-100 text-gray-900 font-sans">
+<body class="text-gray-900 font-sans">
 
     <!-- Sidebar -->
     <aside class="bg-white/95 border-r-4 border-yellow-400 text-blue-900 w-64 h-screen fixed top-0 left-0 p-8 flex flex-col space-y-8 shadow-2xl z-20">
         <div class="flex flex-col items-center">
-            <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" alt="Federación Colombiana de Taekwondo" class="w-20 h-20 mb-2 drop-shadow-xl">
+            <img src="assets/escudo.jfif" alt="Escudo Shotokan" class="w-20 h-20 mb-2 drop-shadow-xl">
             <h2 class="text-xl font-bold text-blue-900 mb-2 text-center">Federación Colombiana de Taekwondo</h2>
         </div>
         <nav>
@@ -41,9 +41,9 @@
 
     <div class="ml-0 md:ml-64 p-4 md:p-10 min-h-screen transition-all duration-300 flex justify-center items-start">
         <!-- TAB: Inscripción Club -->
-        <section id="tab-inscripcion" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-yellow-400 mt-16">
+        <section id="tab-inscripcion" class="bg-white-95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-yellow-400 mt-16">
             <div class="flex flex-col items-center mb-6">
-                <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" alt="Federación Colombiana de Taekwondo" class="w-20 h-20 mb-2 drop-shadow-xl">
+                <img src="assets/escudo2.jfif" alt="Escudo Shotokan" class="w-20 h-20 mb-2 drop-shadow-xl">
                 <h2 class="text-xl font-bold text-blue-900 mb-2 text-center">Federación Colombiana de Taekwondo</h2>
             </div>
             <h3 class="text-2xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
@@ -105,7 +105,7 @@
         </section>
 
         <!-- TAB: Inscritos -->
-        <section id="tab-inscritos" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-3xl w-full border-t-4 border-blue-700 mt-16 hidden">
+        <section id="tab-inscritos" class="bg-white-95 p-8 rounded-2xl shadow-xl max-w-3xl w-full border-t-4 border-blue-700 mt-16 hidden">
             <h3 class="text-2xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
                 <i class="fas fa-list text-blue-700"></i> Clubes Inscritos
             </h3>
@@ -115,7 +115,7 @@
         </section>
 
         <!-- TAB: Torneos -->
-        <section id="tab-torneos" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-red-600 mt-16 hidden">
+        <section id="tab-torneos" class="bg-white-95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-red-600 mt-16 hidden">
             <h3 class="text-2xl font-semibold text-red-700 mb-6 flex items-center gap-2">
                 <i class="fas fa-trophy"></i> Crear Torneo
             </h3>
@@ -178,6 +178,21 @@
             #membersList span {
                 min-width: 100px;
             }
+        }
+        body {
+            background:
+                linear-gradient(120deg, rgba(255,255,255,0.96) 60%, rgba(255,255,255,0.85) 100%),
+                url('https://karatemisiones.wordpress.com/wp-content/uploads/2013/06/tigre.jpg')
+                no-repeat right bottom fixed;
+            background-size: 380px auto;
+            background-position: right 3% bottom 1.5rem;
+            background-repeat: no-repeat;
+            color: #1a202c;
+            /* Suaviza la transición del fondo */
+            transition: background 0.5s;
+        }
+        .bg-white-95 {
+            background-color: rgba(255, 255, 255, 0.95);
         }
     </style>
 </body>
