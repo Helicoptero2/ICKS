@@ -18,8 +18,20 @@
         </button>
     </header>
 
+    <!-- Botón menú hamburguesa SOLO en móvil -->
+    <button id="sidebarToggle"
+        class="md:hidden fixed top-6 left-4 z-30 bg-yellow-400 text-blue-900 p-2 rounded-lg shadow-lg focus:outline-none"
+        aria-label="Abrir menú"
+    >
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+
     <!-- Sidebar -->
-    <aside class="bg-white/95 border-r-4 border-yellow-400 text-blue-900 w-64 h-screen fixed top-0 left-0 p-8 flex flex-col space-y-8 shadow-2xl z-20">
+    <aside id="sidebar"
+        class="bg-white/95 border-r-4 border-yellow-400 text-blue-900 w-64 h-screen p-8 flex flex-col space-y-8 shadow-2xl z-40
+               transition-transform duration-300 fixed left-0 top-0 md:static md:translate-x-0"
+        style="transform: translateX(-110%);"
+    >
         <div class="flex flex-col items-center">
             <img src="assets/escudo.jfif" alt="Escudo Shotokan" class="w-20 h-20 mb-2 drop-shadow-xl">
             <h2 class="text-xl font-bold text-blue-900 mb-2 text-center">Karate Tradicional Shokotan</h2>
@@ -163,6 +175,58 @@
                 window.location.href = "index.html";
             }
         };
+
+        // Sidebar responsive
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        let sidebarOpen = false;
+
+        function openSidebar() {
+            sidebar.style.transform = 'translateX(0)';
+            sidebarOpen = true;
+        }
+        function closeSidebar() {
+            sidebar.style.transform = 'translateX(-110%)';
+            sidebarOpen = false;
+        }
+
+        // Mostrar/ocultar sidebar en móvil
+        sidebarToggle.addEventListener('click', () => {
+            if (sidebarOpen) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+
+        // Cerrar sidebar al hacer clic fuera en móvil
+        window.addEventListener('click', (e) => {
+            if (
+                sidebarOpen &&
+                window.innerWidth < 768 &&
+                !sidebar.contains(e.target) &&
+                !sidebarToggle.contains(e.target)
+            ) {
+                closeSidebar();
+            }
+        });
+
+        // Ajustar sidebar al cambiar tamaño de pantalla
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                sidebar.style.transform = 'translateX(0)';
+                sidebarOpen = false;
+            } else {
+                closeSidebar();
+            }
+        });
+
+        // Inicializar estado correcto al cargar
+        if (window.innerWidth >= 768) {
+            sidebar.style.transform = 'translateX(0)';
+        } else {
+            sidebar.style.transform = 'translateX(-110%)';
+        }
     </script>
     <style>
         .active-tab {
@@ -211,6 +275,29 @@
         }
         .bg-white-95 {
             background-color: rgba(255, 255, 255, 0.95);
+        }
+        @media (max-width: 767px) {
+            #sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                transform: translateX(-110%);
+                width: 80vw;
+                max-width: 320px;
+                height: 100vh;
+                z-index: 40;
+                box-shadow: 2px 0 16px #0002;
+            }
+        }
+        @media (min-width: 768px) {
+            #sidebar {
+                position: static !important;
+                transform: none !important;
+                width: 16rem;
+                height: 100vh;
+                box-shadow: 2px 0 16px #0002;
+                z-index: 20;
+            }
         }
     </style>
 </body>
