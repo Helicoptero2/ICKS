@@ -1,7 +1,7 @@
 # Proyecto Ingenieria de Software III
 
 ## Descripción General
-Este proyecto es una aplicación web para la **Federación Colombiana de Taekwondo**, construida con **HTML**, **Tailwind CSS** y **Supabase** como Backend-as-a-Service (BaaS). Permite a los clubes registrarse, gestionar miembros y manejar inscripciones a torneos.
+Este proyecto es una aplicación web para la **Club Aikibushido Karate Shotokan**, construida con **HTML**, **Tailwind CSS** y **Supabase** como Backend-as-a-Service (BaaS). Permite a los clubes registrarse, gestionar miembros y manejar inscripciones a torneos.
 
 ## Estructura del Proyecto
 ```
