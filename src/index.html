@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Federación Colombiana de Taekwondo - Acceso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/login.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-yellow-300 via-blue-200 to-red-200 text-gray-900 font-sans flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white/90 shadow-md py-4 sm:py-6 mb-4 border-b-4 border-yellow-400">
+        <div class="max-w-3xl mx-auto flex flex-col items-center px-4">
+            <!-- Logo -->
+            <a href="https://www.fctkd.org.co" target="_blank">
+                <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" 
+                     alt="Federación Colombiana de Taekwondo" class="w-20 sm:w-28 md:w-32 lg:w-36 mb-2 animate__animated animate__zoomIn drop-shadow-xl mx-auto">
+            </a>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-blue-900 tracking-tight uppercase text-center animate__animated animate__fadeInLeft">Federación Colombiana de Taekwondo</h1>
+            <p class="text-sm sm:text-base md:text-lg text-gray-700 mt-1 animate__animated animate__fadeInRight text-center">Sistema Oficial de Gestión de Atletas y Eventos</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex flex-1 items-center justify-center px-2 sm:px-0">
+        <div class="w-full max-w-sm sm:max-w-md bg-white/95 shadow-xl rounded-2xl p-4 sm:p-8 border-t-8 border-yellow-400 animate__animated animate__fadeInUp">
+            <div class="text-center mb-6">
+                <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" 
+                     alt="Logo Federación" class="w-12 sm:w-16 mx-auto mb-2 drop-shadow-xl">
+                <h2 class="text-lg sm:text-xl font-semibold text-blue-800 mb-1">Acceso al sistema</h2>
+                <div class="flex justify-center gap-1 mb-2">
+                    <span class="w-4 h-2 rounded bg-yellow-400"></span>
+                    <span class="w-4 h-2 rounded bg-blue-700"></span>
+                    <span class="w-4 h-2 rounded bg-red-600"></span>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" autocomplete="off" class="space-y-5">
+                <!-- Email Input -->
+                <div>
+                    <label for="email" class="font-medium text-blue-900">Correo federado</label>
+                    <div class="flex items-center border-b-2 border-blue-200 mt-2 focus-within:border-yellow-500 transition">
+                        <i class="fas fa-envelope text-yellow-500 mr-2"></i>
+                        <input type="email" id="email" class="w-full py-2 px-3 bg-transparent focus:outline-none focus:ring-0 rounded-lg transition-colors focus:border-yellow-500" placeholder="correo@fctkd.org.co" required>
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div>
+                    <label for="password" class="font-medium text-blue-900">Contraseña</label>
+                    <div class="flex items-center border-b-2 border-blue-200 mt-2 focus-within:border-yellow-500 transition">
+                        <i class="fas fa-lock text-yellow-500 mr-2"></i>
+                        <input type="password" id="password" class="w-full py-2 px-3 bg-transparent focus:outline-none focus:ring-0 rounded-lg transition-colors focus:border-yellow-500" placeholder="Introduce tu contraseña" required>
+                    </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center mt-2">
+                    <input type="checkbox" id="remember-me" class="w-4 h-4 mr-2 accent-yellow-500">
+                    <label for="remember-me" class="text-gray-600 select-none text-sm">Recordarme</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white rounded-lg shadow-md hover:from-yellow-500 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-300 mt-4 transition-all duration-300 ease-in-out transform hover:scale-105 font-semibold text-base sm:text-lg tracking-wide uppercase">Ingresar</button>
+
+                <!-- Links -->
+                <div class="text-center mt-4">
+                    <a href="#" class="text-blue-700 hover:text-yellow-600 transition font-medium text-sm">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="text-center mt-2">
+                    <a href="registro.html" class="text-blue-700 hover:text-yellow-600 transition font-medium text-sm">¿No tienes cuenta? <b>Regístrate aquí</b></a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white py-3 text-center mt-auto shadow-inner text-xs sm:text-sm">
+        <div class="flex flex-col items-center gap-1 px-2">
+            <span>&copy; 2025 Federación Colombiana de Taekwondo</span>
+            <span class="opacity-80">Desarrollado para la comunidad Taekwondo Colombia</span>
+        </div>
+    </footer>
+
+</body>
+</html>

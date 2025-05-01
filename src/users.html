@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Club - Federación Colombiana de Taekwondo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-yellow-200 via-blue-100 to-red-100 text-gray-900 font-sans min-h-screen">
+    <header class="bg-white/90 shadow-md py-4 border-b-4 border-yellow-400">
+        <div class="max-w-3xl mx-auto flex flex-col items-center px-4 relative">
+            <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32"
+                alt="Federación Colombiana de Taekwondo" class="w-16 h-16 mb-2 drop-shadow-xl">
+            <h1 class="text-2xl font-bold text-blue-900 mb-2 text-center">Panel del Club</h1>
+            <button id="logoutBtn" class="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-semibold shadow">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </header>
+    <main class="max-w-6xl mx-auto mt-8 p-6 bg-white/95 rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Columna 1: Integrantes -->
+        <section class="md:col-span-1">
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-blue-900 mb-4 flex items-center gap-2">
+                    <i class="fas fa-users text-yellow-500"></i> Integrantes del Club
+                </h2>
+                <div id="integrantesList">
+                    <div class="text-gray-400 text-center py-4">Cargando integrantes...</div>
+                </div>
+            </div>
+        </section>
+        <!-- Columna 2: Torneos -->
+        <section class="md:col-span-1">
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-blue-900 mb-4 flex items-center gap-2">
+                    <i class="fas fa-trophy text-red-600"></i> Torneos Disponibles
+                </h2>
+                <div id="torneosList">
+                    <div class="text-gray-400 text-center py-4">Cargando torneos...</div>
+                </div>
+            </div>
+        </section>
+        <!-- Columna 3: Inscripción y resumen -->
+        <section class="md:col-span-1">
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-blue-900 mb-4 flex items-center gap-2">
+                    <i class="fas fa-user-plus text-green-600"></i> Inscribir Integrantes a Torneo
+                </h2>
+                <form id="inscripcion-form" class="space-y-4">
+                    <div>
+                        <label class="block font-medium mb-1" for="selectTorneo">Selecciona un torneo</label>
+                        <select id="selectTorneo" class="w-full p-3 border border-blue-200 rounded-lg" required>
+                            <option value="">Selecciona un torneo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-1" for="selectIntegrante">Selecciona un integrante</label>
+                        <select id="selectIntegrante" class="w-full p-3 border border-blue-200 rounded-lg" required>
+                            <option value="">Selecciona un integrante</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full p-3 bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white rounded-lg font-semibold hover:from-yellow-500 hover:to-red-700 transition">
+                        Inscribir Integrante
+                    </button>
+                    <div id="inscripcion-success" class="hidden text-green-600 text-center font-semibold mt-2">¡Integrante inscrito exitosamente!</div>
+                </form>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-blue-900 mb-2">Integrantes inscritos por torneo</h3>
+                <div id="inscritosPorTorneo"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="w-full bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white py-4 text-center mt-10 shadow-inner">
+        <p>&copy; 2025 Federación Colombiana de Taekwondo. Todos los derechos reservados.</p>
+    </footer>
+    <!-- Cargar integrantes del club -->
+    <script type="module">
+        import { getTorneos, getMembersByClub, getMembersByTorneo } from './js/postgres.js';
+        import { supabase, insertMembersTorneo } from './js/supabase.js';
+
+        // Logout
+        document.getElementById('logoutBtn').onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        };
+
+        // Obtener el club_id del usuario logueado
+        let club_id = null;
+        let user_email = null;
+
+        async function initPanel() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            user_email = user.email;
+            const { data, error } = await supabase.from('clubs').select('id').eq('correo', user_email).single();
+            if (data) {
+                club_id = data.id;
+                await cargarIntegrantes();
+                await cargarTorneos();
+                await cargarInscritosPorTorneo();
+            } else {
+                document.querySelector('main').innerHTML = `<div class="text-red-600 text-center py-10">No tienes un club asociado a este usuario.</div>`;
+            }
+        }
+
+        // Cargar integrantes del club
+        async function cargarIntegrantes() {
+            const integrantesList = document.getElementById('integrantesList');
+            const selectIntegrante = document.getElementById('selectIntegrante');
+            if (!club_id) return;
+            const { data: integrantes, error } = await getMembersByClub(club_id);
+            integrantesList.innerHTML = '';
+            selectIntegrante.innerHTML = `<option value="">Selecciona un integrante</option>`;
+            if (integrantes && integrantes.length > 0) {
+                integrantesList.innerHTML = `
+                    <ul class="ml-4 mt-2 space-y-1">
+                        ${integrantes.map(m => `
+                            <li class="text-gray-700 border-b last:border-b-0 pb-1">
+                                <b>${m.nombre} ${m.apellido}</b>
+                                | Cédula: ${m.cedula}
+                                | Sexo: ${m.sexo}
+                                | Celular: ${m.celular}
+                                | Dirección: ${m.direccion}
+                                | Correo: ${m.correo}
+                                | Categoría: ${m.categoria}
+                                | Cinturón: ${m.cinturon}
+                                | Peso: ${m.peso} kg
+                                | Talla: ${m.talla} cm
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                integrantes.forEach(m => {
+                    selectIntegrante.innerHTML += `<option value="${m.id}">${m.nombre} ${m.apellido} (${m.cedula})</option>`;
+                });
+            } else {
+                integrantesList.innerHTML = `<div class="text-gray-400 text-center py-4">No hay integrantes registrados.</div>`;
+                selectIntegrante.innerHTML = `<option value="">No hay integrantes</option>`;
+            }
+        }
+
+        // Cargar torneos disponibles
+        async function cargarTorneos() {
+            const selectTorneo = document.getElementById('selectTorneo');
+            const torneosList = document.getElementById('torneosList');
+            const { data: torneos, error } = await getTorneos();
+            torneosList.innerHTML = '';
+            selectTorneo.innerHTML = `<option value="">Selecciona un torneo</option>`;
+            if (error || !torneos || torneos.length === 0) {
+                torneosList.innerHTML = `<div class="text-gray-400 text-center py-4">No hay torneos disponibles.</div>`;
+                selectTorneo.innerHTML = `<option value="">No hay torneos</option>`;
+                return;
+            }
+            torneos.forEach(t => {
+                selectTorneo.innerHTML += `<option value="${t.id}">${t.nombre} (${t.fecha})</option>`;
+                torneosList.innerHTML += `
+                    <div class="mb-4 border-b pb-2">
+                        <span class="font-bold text-red-700 text-lg">${t.nombre}</span>
+                        <span class="ml-2 text-gray-500 text-sm">Fecha: ${t.fecha}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Inscribir integrante a torneo
+        const inscripcionForm = document.getElementById('inscripcion-form');
+        const inscripcionSuccess = document.getElementById('inscripcion-success');
+        inscripcionForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const torneo_id = document.getElementById('selectTorneo').value;
+            const member_id = document.getElementById('selectIntegrante').value;
+            if (!torneo_id || !member_id) return;
+            const { error } = await insertMembersTorneo([{ torneo_id: parseInt(torneo_id), member_id: parseInt(member_id) }]);
+            if (error) {
+                alert('Error al inscribir integrante: ' + error.message);
+                return;
+            }
+            inscripcionForm.reset();
+            inscripcionSuccess.classList.remove('hidden');
+            setTimeout(() => inscripcionSuccess.classList.add('hidden'), 2000);
+            await cargarInscritosPorTorneo();
+        });
+
+        // Mostrar integrantes inscritos por torneo
+        async function cargarInscritosPorTorneo() {
+            const inscritosDiv = document.getElementById('inscritosPorTorneo');
+            const { data: torneos } = await getTorneos();
+            if (!torneos) return;
+            inscritosDiv.innerHTML = '';
+            for (const torneo of torneos) {
+                const { data: inscritos } = await getMembersByTorneo(torneo.id);
+                let inscritosHtml = '';
+                const inscritosClub = (inscritos || []).filter(i => i.members && i.members.club_id === club_id);
+                if (!inscritosClub.length) {
+                    inscritosHtml = `<div class="text-gray-400 text-sm ml-4">No hay integrantes inscritos.</div>`;
+                } else {
+                    inscritosHtml = `
+                        <ul class="ml-4 mt-2 space-y-1">
+                            ${inscritosClub.map(i => `
+                                <li class="text-gray-700 border-b last:border-b-0 pb-1">
+                                    <b>${i.members?.nombre || ''} ${i.members?.apellido || ''}</b>
+                                    | Cédula: ${i.members?.cedula || ''}
+                                    | Sexo: ${i.members?.sexo || ''}
+                                    | Celular: ${i.members?.celular || ''}
+                                    | Dirección: ${i.members?.direccion || ''}
+                                    | Correo: ${i.members?.correo || ''}
+                                    | Categoría: ${i.members?.categoria || ''}
+                                    | Cinturón: ${i.members?.cinturon || ''}
+                                    | Peso: ${i.members?.peso || ''} kg
+                                    | Talla: ${i.members?.talla || ''} cm
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                }
+                inscritosDiv.innerHTML += `
+                    <div class="mb-6 border-b pb-4">
+                        <div>
+                            <span class="font-bold text-red-700 text-lg">${torneo.nombre}</span>
+                            <span class="ml-2 text-gray-500 text-sm">Fecha: ${torneo.fecha}</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="font-semibold text-blue-900">Integrantes inscritos:</span>
+                            ${inscritosHtml}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Inicializar panel al cargar
+        initPanel();
+    </script>
+</body>
+</html>

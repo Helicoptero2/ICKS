@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Federación Colombiana de Taekwondo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body class="bg-gradient-to-br from-yellow-200 via-blue-100 to-red-100 text-gray-900 font-sans">
+
+    <!-- Sidebar -->
+    <aside class="bg-white/95 border-r-4 border-yellow-400 text-blue-900 w-64 h-screen fixed top-0 left-0 p-8 flex flex-col space-y-8 shadow-2xl z-20">
+        <div class="flex flex-col items-center">
+            <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" alt="Federación Colombiana de Taekwondo" class="w-20 h-20 mb-2 drop-shadow-xl">
+            <h2 class="text-xl font-bold text-blue-900 mb-2 text-center">Federación Colombiana de Taekwondo</h2>
+        </div>
+        <nav>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" id="tab-inscripcion-btn" class="flex items-center gap-2 hover:bg-yellow-100 p-3 rounded-lg transition font-semibold active-tab">
+                        <i class="fas fa-users text-yellow-500"></i> Inscripción Club
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="tab-inscritos-btn" class="flex items-center gap-2 hover:bg-blue-100 p-3 rounded-lg transition font-semibold">
+                        <i class="fas fa-list text-blue-700"></i> Inscritos
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="tab-torneos-btn" class="flex items-center gap-2 hover:bg-red-100 p-3 rounded-lg transition font-semibold">
+                        <i class="fas fa-trophy text-red-600"></i> Torneos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="ml-0 md:ml-64 p-4 md:p-10 min-h-screen transition-all duration-300 flex justify-center items-start">
+        <!-- TAB: Inscripción Club -->
+        <section id="tab-inscripcion" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-yellow-400 mt-16">
+            <div class="flex flex-col items-center mb-6">
+                <img src="https://scontent-bog2-1.xx.fbcdn.net/v/t39.30808-6/305658007_451472127010990_7258489463743567111_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=aEWIPgMOMOAQ7kNvwEK59t1&_nc_oc=AdmM2dM5mMnXn2MYZS00lK56y50fFFFKQzEiMBoTYgYiU7XVpOOzzLwh0miy9kH2xng&_nc_zt=23&_nc_ht=scontent-bog2-1.xx&_nc_gid=64vrJf0H0y16lYP5HB_RWg&oh=00_AfHU2GqQp7x0e5tEdSuq4fdXGqz3JJCnf3_dbI32TA3qXg&oe=68104F32" alt="Federación Colombiana de Taekwondo" class="w-20 h-20 mb-2 drop-shadow-xl">
+                <h2 class="text-xl font-bold text-blue-900 mb-2 text-center">Federación Colombiana de Taekwondo</h2>
+            </div>
+            <h3 class="text-2xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
+                <i class="fas fa-users text-yellow-500"></i> Inscripción de Club
+            </h3>
+            <form id="club-form" autocomplete="off" class="space-y-6">
+                <div>
+                    <label class="block font-medium mb-1 text-blue-900" for="clubName">Nombre del Club</label>
+                    <input type="text" id="clubName" class="w-full p-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition" placeholder="Ej: Tigres Negros" required>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-blue-900" for="clubEmail">Correo del Club</label>
+                    <input type="email" id="clubEmail" class="w-full p-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition" placeholder="Ej: club@taekwondo.com" required>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-blue-900" for="senseiName">Nombre del Sensei</label>
+                    <input type="text" id="senseiName" class="w-full p-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition" placeholder="Ej: Juan Pérez" required>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-blue-900">Miembros</label>
+                    <div class="overflow-x-auto pb-2">
+                        <div class="flex flex-wrap gap-2 min-w-[900px]">
+                            <input type="text" id="memberFirstName" class="flex-1 min-w-[120px] p-3 border border-blue-200 rounded-lg" placeholder="Nombre" autocomplete="off">
+                            <input type="text" id="memberLastName" class="flex-1 min-w-[120px] p-3 border border-blue-200 rounded-lg" placeholder="Apellido" autocomplete="off">
+                            <input type="text" id="memberId" class="flex-1 min-w-[100px] p-3 border border-blue-200 rounded-lg" placeholder="Cédula" autocomplete="off">
+                            <select id="memberSex" class="flex-1 min-w-[100px] p-3 border border-blue-200 rounded-lg">
+                                <option value="">Sexo</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                            <input type="text" id="memberPhone" class="flex-1 min-w-[120px] p-3 border border-blue-200 rounded-lg" placeholder="Celular" autocomplete="off">
+                            <input type="text" id="memberAddress" class="flex-1 min-w-[140px] p-3 border border-blue-200 rounded-lg" placeholder="Dirección" autocomplete="off">
+                            <input type="email" id="memberEmail" class="flex-1 min-w-[140px] p-3 border border-blue-200 rounded-lg" placeholder="Correo" autocomplete="off">
+                            <input type="text" id="memberBelt" class="flex-1 min-w-[100px] p-3 border border-blue-200 rounded-lg" placeholder="Cinturón" autocomplete="off">
+                            <select id="memberCategory" class="flex-1 min-w-[100px] p-3 border border-blue-200 rounded-lg">
+                                <option value="">Categoría</option>
+                                <option value="Kumite">Kumite</option>
+                                <option value="Kata">Kata</option>
+                            </select>
+                            <input type="number" id="memberWeight" class="flex-1 min-w-[80px] p-3 border border-blue-200 rounded-lg" placeholder="Peso (kg)" min="0" autocomplete="off">
+                            <input type="number" id="memberHeight" class="flex-1 min-w-[80px] p-3 border border-blue-200 rounded-lg" placeholder="Talla (cm)" min="0" autocomplete="off">
+                        </div>
+                    </div>
+                    <!-- Botón fuera del scroll -->
+                    <div class="mt-2 flex justify-end">
+                        <button type="button" id="addMemberBtn" class="min-w-[48px] bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition shadow font-semibold">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul id="membersList" class="mt-3 space-y-2 overflow-x-auto max-w-full">
+                        <!-- Los miembros se mostrarán aquí -->
+                    </ul>
+                </div>
+                <button type="submit" class="w-full p-4 bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white rounded-lg hover:from-yellow-500 hover:to-red-700 transition transform hover:scale-105 font-semibold text-lg shadow">
+                    Inscribir Club
+                </button>
+                <div id="club-success" class="hidden text-green-600 text-center font-semibold mt-2">¡Club inscrito exitosamente!</div>
+            </form>
+        </section>
+
+        <!-- TAB: Inscritos -->
+        <section id="tab-inscritos" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-3xl w-full border-t-4 border-blue-700 mt-16 hidden">
+            <h3 class="text-2xl font-semibold text-blue-900 mb-6 flex items-center gap-2">
+                <i class="fas fa-list text-blue-700"></i> Clubes Inscritos
+            </h3>
+            <div id="clubsList">
+                <div class="text-gray-400 text-center py-6">Cargando clubes...</div>
+            </div>
+        </section>
+
+        <!-- TAB: Torneos -->
+        <section id="tab-torneos" class="bg-white/95 p-8 rounded-2xl shadow-xl max-w-2xl w-full border-t-4 border-red-600 mt-16 hidden">
+            <h3 class="text-2xl font-semibold text-red-700 mb-6 flex items-center gap-2">
+                <i class="fas fa-trophy"></i> Crear Torneo
+            </h3>
+            <form id="torneo-form" autocomplete="off" class="space-y-6">
+                <div>
+                    <label class="block font-medium mb-1 text-red-700" for="torneoName">Nombre del Torneo</label>
+                    <input type="text" id="torneoName" class="w-full p-3 border border-red-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 transition" placeholder="Ej: Copa Colombia" required>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-red-700" for="torneoDate">Fecha</label>
+                    <input type="date" id="torneoDate" class="w-full p-3 border border-red-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 transition" required>
+                </div>
+                <button type="submit" class="w-full p-4 bg-gradient-to-r from-red-400 via-yellow-400 to-blue-700 text-white rounded-lg hover:from-red-500 hover:to-blue-800 transition transform hover:scale-105 font-semibold text-lg shadow">
+                    Crear Torneo
+                </button>
+                <div id="torneo-success" class="hidden text-green-600 text-center font-semibold mt-2">¡Torneo creado exitosamente!</div>
+            </form>
+            <div class="mt-10">
+                <h4 class="text-xl font-bold text-red-700 mb-4 flex items-center gap-2"><i class="fas fa-list"></i> Torneos creados</h4>
+                <div id="torneosList">
+                    <div class="text-gray-400 text-center py-6">Cargando torneos...</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="w-full bg-gradient-to-r from-yellow-400 via-blue-700 to-red-600 text-white py-4 text-center mt-10 shadow-inner">
+        <p>&copy; 2025 Federación Colombiana de Taekwondo. Todos los derechos reservados.</p>
+    </footer>
+    <script type="module" src="./js/dashboard.js"></script>
+    <style>
+        .active-tab {
+            background: linear-gradient(to right, #fde047, #2563eb, #dc2626);
+            color: #fff !important;
+        }
+        /* Mejora visual para los miembros */
+        #membersList li {
+            background: linear-gradient(90deg, #fef9c3 0%, #dbeafe 100%);
+            border-left: 6px solid #fde047;
+            box-shadow: 0 2px 8px 0 #0001;
+            transition: box-shadow 0.2s;
+            min-width: 340px;
+            max-width: 100%;
+        }
+        #membersList li:hover {
+            box-shadow: 0 4px 16px 0 #0002;
+            border-left-color: #2563eb;
+        }
+        #membersList span {
+            display: block;
+            min-width: 120px;
+            margin-right: 8px;
+            font-size: 0.97em;
+        }
+        @media (max-width: 768px) {
+            #membersList li {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+            #membersList span {
+                min-width: 100px;
+            }
+        }
+    </style>
+</body>
+</html>
