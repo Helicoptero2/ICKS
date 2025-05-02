@@ -1,5 +1,9 @@
 # Proyecto Ingenieria de Software III
 
+Ingeniero puede ingresar
+CON ESTE LINK DIRECTAMENTE 
+https://software-iii-proyect.vercel.app/
+
 ## Descripción General
 Este proyecto es una aplicación web para la **Club Aikibushido Karate Shotokan**, construida con **HTML**, **Tailwind CSS** y **Supabase** como Backend-as-a-Service (BaaS). Permite a los clubes registrarse, gestionar miembros y manejar inscripciones a torneos.
 
@@ -25,6 +29,8 @@ html-bootstrap-baas-project
 ```
 
 ## Funcionalidades
+
+
 
 - **Registro de Clubes:** Registrar clubes con nombre, correo electrónico y nombre del sensei.
 - **Gestión de Miembros:** Agregar miembros con los siguientes campos: Nombre, Apellido, Cédula, Sexo, Celular, Dirección, Correo, Cinturón, Categoría (Kumite/Kata), Peso, Talla.
